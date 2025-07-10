@@ -4,6 +4,10 @@ pipeline {
         choice(name: 'ENVIRONMENT', choices: ['default', 'test', 'qa'], description: 'Selecciona el entorno de pruebas')
         string(name: 'TAGS', defaultValue: 'not @obtenerTiposMascotaPorId', description: 'Dejar vacío para ejecutar todas las pruebas')
     }
+    options {
+        timeout(time: 10, unit: 'MINUTES')
+        ansiColor('xterm')
+    }
 //     triggers {
 //         cron('H/30 * * * *')
 //     }
@@ -17,7 +21,7 @@ pipeline {
                           -v \$(pwd):/workspace \
                           -w /workspace \
                           maven:3.8.8-eclipse-temurin-17-alpine \
-                          mvn clean verify -Dstyle.color=always -Denvironment=${params.ENVIRONMENT} ${tagsOption} -ntp
+                          mvn clean verify -Dstyle.color=always -Denvironment=${params.ENVIRONMENT} ${tagsOption} -B -ntp
                     """
                 }
             }
