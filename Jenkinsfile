@@ -8,9 +8,9 @@ pipeline {
         timeout(time: 10, unit: 'MINUTES')
         ansiColor('xterm')
     }
-//     triggers {
-//         cron('H/30 * * * *')
-//     }
+    triggers {
+        cron('H/30 * * * *')
+    }
     stages {
         stage('Integration Tests') {
             steps {
