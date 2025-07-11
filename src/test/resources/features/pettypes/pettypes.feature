@@ -1,5 +1,7 @@
+@pettypes
 Feature:  Gestionar tipos de mascotas
 
+  @listarTiposMascotas
   Scenario: Listar tipos de mascotas
     When el cliente realiza una peticion GET a "api/pettypes"
     Then el servidor debe de responder con un status 200
@@ -17,6 +19,7 @@ Feature:  Gestionar tipos de mascotas
 #    When el cliente realiza una peticion GET a "api/pettypes/6"
 #    Then el servidor debe de responder con un status 200
 
+  @obtenerMascotaPorId
   Scenario Outline: Obtener tipo de mascota por id
 #  Scenario Outline: Obtener mascota por <id>
     When el cliente realiza una peticion GET a <path>
@@ -40,3 +43,25 @@ Feature:  Gestionar tipos de mascotas
 #    When el cliente registra el nuevo tipo de mascota
 #    Then el servidor debe de responder con un status 201
 #    And el cuerpo de la respuesta debe contener los detalles del nuevo tipo de mascota registrado
+
+  @wip
+  @actualizarTipoMascota
+  Scenario: Actualizar un tipo de mascota
+    Given el cliente configura el recurso "api/pettypes/{id}" con id 2 usando los datos
+      """
+        {
+            "id": 0,
+            "name": "abc"
+        }
+      """
+    When el cliente actualiza el tipo de mascota
+    Then el servidor debe de responder con un status 204
+    And el cuerpo de la respuesta debe estar vacio
+
+  @eliminarTipoMascota
+  Scenario: Eliminar un tipo de mascota
+    Given el cliente configura el recurso "api/pettypes/{id}" con id 3
+    When el cliente elimina el tipo de mascota
+    Then el servidor debe de responder con un status 204
+    And el cuerpo de la respuesta debe estar vacio
+

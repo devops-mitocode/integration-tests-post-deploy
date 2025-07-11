@@ -74,4 +74,38 @@ public class PetTypesDefinitions {
         then().body("name", notNullValue());
         then().body("name", is(jsonMap.get("name")));
     }
+
+    @Given("el cliente configura el recurso {string} con id {int} usando los datos")
+    public void el_cliente_configura_el_recurso_con_id_usando_los_datos(String path, Integer id, String docString) {
+        given()
+                .basePath(path)
+                .pathParam("id", id)
+                .contentType(ContentType.JSON)
+                .body(docString);
+    }
+    @When("el cliente actualiza el tipo de mascota")
+    public void el_cliente_actualiza_el_tipo_de_mascota() {
+        when()
+                .put()
+                .andReturn();
+    }
+    @Then("el cuerpo de la respuesta debe estar vacio")
+    public void el_cuerpo_de_la_respuesta_debe_estar_vacio() {
+        then().body(emptyOrNullString());
+    }
+
+    @Given("el cliente configura el recurso {string} con id {int}")
+    public void el_cliente_configura_el_recurso_con_id(String path, Integer id) {
+        given()
+                .basePath(path)
+                .pathParam("id", id)
+                .contentType(ContentType.JSON);
+    }
+
+    @When("el cliente elimina el tipo de mascota")
+    public void el_cliente_elimina_el_tipo_de_mascota() {
+        when()
+                .delete()
+                .andReturn();
+    }
 }
